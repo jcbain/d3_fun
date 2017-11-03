@@ -1,51 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>D3 Test</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
-        <script src="//d3js.org/d3.v4.min.js" charset="utf-8"></script>
-        <script src="//d3js.org/topojson.v1.min.js"></script>
-        <style>
-   #neighborhoods path{
-     fill: #ccc;
-   }
-   #rodents path{
-     fill: #900;
-     stroke: #999;
-   }
-   #rodents path:hover{
-     fill: black;
-   }
- </style>
-    </head>
-    <body>
-        <script type="text/javascript">
-        var width = 700,
-    height = 580;
-var svg = d3.select( "body" )
-  .append( "svg" )
-  .attr( "width", width )
-  .attr( "height", height );
-var albersProjection = d3.geoAlbers()
-  .scale( 190000 )
-  .rotate( [71.057,0] )
-  .center( [0, 42.313] )
-  .translate( [width/2,height/2] );
-var geoPath = d3.geoPath()
-    .projection( albersProjection );
-      d3.json("states.json", function(json) {
-
-                     //Bind data and create one path per GeoJSON feature
-                     svg.selectAll("path")
-                        .data(json.features)
-                        .enter()
-                        .append("path")
-                        .attr("d", path)
-
-
-                 });
-
-        </script>
-    </body>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+  </head>
 </html>
