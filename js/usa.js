@@ -1,16 +1,16 @@
 // asynchronous tasks
 d3.queue()
-  .defer(d3.json, "data/states-topo.json")
+  .defer(d3.json, "data/missouri.json")
   .await(ready);
 
 
 // callback function
-function read(error, data){
+function ready(error, data){
   if(error) throw error;
 
   var usa = topojson.feature(data, {
     type: "GeometryCollection",
-    geometries: data.objects.tl_2017_us_state.geometries
+    geometries: data.objects.missouri.geometries
   });
 
   // projection
