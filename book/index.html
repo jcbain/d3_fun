@@ -5,6 +5,7 @@
     <title>diversity</title>
 
     <!--styles.css-->
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
 
     <!--D3 json-->
     <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
@@ -14,26 +15,41 @@
 
   <body>
     <script type="text/javascript">
-      var dataset = [1, 5, 10, 15, 20, 25];
+    var dataset = [];                         //Initialize empty array
+    for (var i = 0; i < 25; i++) {            //Loop 25 times
+        var newNumber = Math.floor(Math.random() * 30);   //New random number (0-30)
+        dataset.push(newNumber);              //Add new number to array
+    }
 
-      d3.select("body").selectAll("p")
-        .data(dataset)
-        .enter()
-        .append("p")
-        .text(function(d) {
-          if (d == 1) {
-            return "I poop " + d + " time a day";
-          } else {
-            return "I poop " + d + " times a day";
-          }
-        })
-        .style("color", function(d){
-          if (d > 15) { //Threshold of 15
-            return "red";
-          } else {
-            return "black";
-          }
-        });
+    //Width and height
+    var w = 500;
+    var h = 50;
+
+    var svg = d3.select("body")
+                .append("svg")
+                .attr("width", w)   // <-- Here
+                .attr("height", h); // <-- and here!
+
+    var circles = svg.selectAll("circle")
+                     .data(dataset)
+                    .enter()
+                    .append("circle");
+
+    circles.attr("cx", function(d, i) {
+                    return (i * 50) + 25;
+            })
+            .attr("cy", h/2)
+            .attr("r", function(d) {
+              var radius = d/3;
+              return radius;
+            })
+            .attr("fill", "yellow")
+            .attr("stroke", "orange")
+            .attr("stroke-width", function(d){
+              var strokeWidth = d/6;
+              return strokeWidth;
+            });
+
 
     </script>
   </body>
