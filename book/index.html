@@ -58,7 +58,18 @@
 			   })
 			   .attr("fill", function(d) {
 					return "rgb(0, 0, " + Math.round(d * 10) + ")";
-			   });
+			   })
+         .on("mouseover", function() {
+           d3.select(this)
+           .attr("fill", "orange");
+         })
+         .on("mouseout", function(d) {
+    d3.select(this)
+      .transition()
+      .duration(250)
+      .attr("fill", "rgb(0, 0, " + (d * 10) + ")");
+});
+
 
 			//Create labels
 			svg.selectAll("text")
@@ -114,6 +125,16 @@
 						.attr("fill", function(d) {				//Sets the fill value
 							return "rgb(0, 0, " + Math.round(d * 10) + ")";
 						})
+            .on("mouseover", function() {
+              d3.select(this)
+              .attr("fill", "orange");
+            })
+            .on("mouseout", function(d) {
+              d3.select(this)
+              .transition()
+              .duration(250)
+              .attr("fill", "rgb(0, 0, " + (d * 10) + ")");
+            })
 						.merge(bars)							//Merges the enter selection with the update selection
 						.transition()							//Initiate a transition on all elements in the update selection (all rects)
 						.duration(500)
