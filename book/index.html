@@ -66,11 +66,11 @@
            .attr("fill", "orange");
          })
          .on("mouseout", function(d) {
-    d3.select(this)
-      .transition()
-      .duration(250)
-      .attr("fill", "rgb(0, 0, " + (d * 10) + ")");
-});
+          d3.select(this)
+            .transition()
+            .duration(250)
+            .attr("fill", "rgb(0, 0, " + (d * 10) + ")");
+      });
 
 
 			//Create labels
@@ -93,8 +93,6 @@
 			   .attr("fill", "white");
 
 
-
-
 			//On click, update with new data
 			d3.select(".addition")
 				.on("click", function() {
@@ -110,164 +108,161 @@
 
 					//Select…
 					var bars = svg.selectAll("rect")			//Select all bars
-						.data(dataset);							//Re-bind data to existing bars, return the 'update' selection
+						            .data(dataset);							//Re-bind data to existing bars, return the 'update' selection
 																//'bars' is now the update selection
 
 					//Enter…
 					bars.enter()								//References the enter selection (a subset of the update selection)
-						.append("rect")							//Creates a new rect
-						.attr("x", w)							//Sets the initial x position of the rect beyond the far right edge of the SVG
-						.attr("y", function(d) {				//Sets the y value, based on the updated yScale
-							return h - yScale(d);
-						})
-						.attr("width", xScale.bandwidth())		//Sets the width value, based on the updated xScale
-						.attr("height", function(d) {			//Sets the height value, based on the updated yScale
-							return yScale(d);
-						})
-						.attr("fill", function(d) {				//Sets the fill value
-							return "rgb(0, 0, " + Math.round(d * 10) + ")";
-						})
-            .on("mouseover", function() {
-              d3.select(this)
-              .attr("fill", "orange");
-            })
-            .on("mouseout", function(d) {
-              d3.select(this)
-              .transition()
-              .duration(250)
-              .attr("fill", "rgb(0, 0, " + (d * 10) + ")");
-            })
-						.merge(bars)							//Merges the enter selection with the update selection
-						.transition()							//Initiate a transition on all elements in the update selection (all rects)
-						.duration(500)
-						.attr("x", function(d, i) {				//Set new x position, based on the updated xScale
-							return xScale(i);
-						})
-						.attr("y", function(d) {				//Set new y position, based on the updated yScale
-							return h - yScale(d);
-						})
-						.attr("width", xScale.bandwidth())		//Set new width value, based on the updated xScale
-						.attr("height", function(d) {			//Set new height value, based on the updated yScale
-							return yScale(d);
-						});
-
-
+						  .append("rect")							//Creates a new rect
+						  .attr("x", w)							//Sets the initial x position of the rect beyond the far right edge of the SVG
+						  .attr("y", function(d) {				//Sets the y value, based on the updated yScale
+							 return h - yScale(d);
+						  })
+						  .attr("width", xScale.bandwidth())		//Sets the width value, based on the updated xScale
+						  .attr("height", function(d) {			//Sets the height value, based on the updated yScale
+							 return yScale(d);
+						  })
+						  .attr("fill", function(d) {				//Sets the fill value
+							 return "rgb(0, 0, " + Math.round(d * 10) + ")";
+						  })
+              .on("mouseover", function() {
+                d3.select(this)
+                  .attr("fill", "orange");
+              })
+              .on("mouseout", function(d) {
+                d3.select(this)
+                  .transition()
+                  .duration(250)
+                  .attr("fill", "rgb(0, 0, " + (d * 10) + ")");
+              })
+						  .merge(bars)							//Merges the enter selection with the update selection
+						  .transition()							//Initiate a transition on all elements in the update selection (all rects)
+						  .duration(500)
+						  .attr("x", function(d, i) {				//Set new x position, based on the updated xScale
+							  return xScale(i);
+						  })
+						  .attr("y", function(d) {				//Set new y position, based on the updated yScale
+							  return h - yScale(d);
+						  })
+						  .attr("width", xScale.bandwidth())		//Set new width value, based on the updated xScale
+						  .attr("height", function(d) {			//Set new height value, based on the updated yScale
+							  return yScale(d);
+					});
 
 					//Update all labels
 					//
 					//Exercise: Modify this code to add a new label each time a new bar is added!
-					//
           var texts = svg.selectAll("text")
-                        .data(dataset)
+                         .data(dataset)
 
           texts.enter()
                .append("text")
                .attr("x", w)                  //Sets the x value, based on the update xScale
                .attr("y", function(d) {				//Sets the y value, based on the updated yScale
-   							return h - yScale(d);
-   						})
-              .text(function(d) {             //
- 					   		return d;
+   							 return h - yScale(d);
+   						 })
+               .text(function(d) {             //
+ 					   		 return d;
  					    })
               .merge(texts)
               .transition()
               .duration(500)
               .attr("text-anchor", "middle")
-     			   .attr("x", function(d, i) {
+     			    .attr("x", function(d, i) {
      			   		return xScale(i) + xScale.bandwidth() / 2;
-     			   })
-     			   .attr("y", function(d) {
+     			    })
+     			    .attr("y", function(d) {
      			   		return h - yScale(d) + 14;
-     			   })
-     			   .attr("font-family", "sans-serif")
-     			   .attr("font-size", "11px")
-     			   .attr("fill", "white");
+     			    })
+     			    .attr("font-family", "sans-serif")
+     			    .attr("font-size", "11px")
+     			    .attr("fill", "white");
+			});
 
-				});
 
-
+      //On click remove a column
       d3.select(".subtraction")
-      .on("click", function() {
+        .on("click", function() {
 
         //Remove one value from dataset
-        dataset.shift();
+          dataset.shift();
 
-        //Update scale domains
-        xScale.domain(d3.range(dataset.length));	//Recalibrate the x scale domain, given the new length of dataset
-        yScale.domain([0, d3.max(dataset)]);		//Recalibrate the y scale domain, given the new max value in dataset
+          //Update scale domains
+          xScale.domain(d3.range(dataset.length));	//Recalibrate the x scale domain, given the new length of dataset
+          yScale.domain([0, d3.max(dataset)]);		//Recalibrate the y scale domain, given the new max value in dataset
 
-        //Select…
-        var bars = svg.selectAll("rect")			//Select all bars
-                      .data(dataset);							//Re-bind data to existing bars, return the 'update' selection
-                      //Enter…
-    					bars.enter()								//References the enter selection (a subset of the update selection)
-    						.append("rect")							//Creates a new rect
-    						.attr("x", w)							//Sets the initial x position of the rect beyond the far right edge of the SVG
-    						.attr("y", function(d) {				//Sets the y value, based on the updated yScale
-    							return h - yScale(d);
-    						})
-    						.attr("width", xScale.bandwidth())		//Sets the width value, based on the updated xScale
-    						.attr("height", function(d) {			//Sets the height value, based on the updated yScale
-    							return yScale(d);
-    						})
-    						.attr("fill", function(d) {				//Sets the fill value
-    							return "rgb(0, 0, " + Math.round(d * 10) + ")";
-    						})
-    						.merge(bars)							//Merges the enter selection with the update selection
-    						.transition()							//Initiate a transition on all elements in the update selection (all rects)
-    						.duration(500)
-    						.attr("x", function(d, i) {				//Set new x position, based on the updated xScale
-    							return xScale(i);
-    						})
-    						.attr("y", function(d) {				//Set new y position, based on the updated yScale
-    							return h - yScale(d);
-    						})
-    						.attr("width", xScale.bandwidth())		//Set new width value, based on the updated xScale
-    						.attr("height", function(d) {			//Set new height value, based on the updated yScale
-    							return yScale(d);
-    						});
+          //Select…
+          var bars = svg.selectAll("rect")			//Select all bars
+                        .data(dataset);							//Re-bind data to existing bars, return the 'update' selection
 
-        //Exit…
-        bars.exit()				//References the exit selection (a subset of the update selection)
-            .transition()		//Initiates a transition on the one element we're deleting
-            .duration(500)
-            .attr("x", w)		//Move past the right edge of the SVG
-            .remove();   		//Deletes this element from the DOM once transition is complete
+          //Enter…
+    			bars.enter()								//References the enter selection (a subset of the update selection)
+    					.append("rect")							//Creates a new rect
+    					.attr("x", w)							//Sets the initial x position of the rect beyond the far right edge of the SVG
+    					.attr("y", function(d) {				//Sets the y value, based on the updated yScale
+    						return h - yScale(d);
+    					})
+    					.attr("width", xScale.bandwidth())		//Sets the width value, based on the updated xScale
+    					.attr("height", function(d) {			//Sets the height value, based on the updated yScale
+    						return yScale(d);
+    					})
+    					.attr("fill", function(d) {				//Sets the fill value
+    						return "rgb(0, 0, " + Math.round(d * 10) + ")";
+    					})
+    					.merge(bars)							//Merges the enter selection with the update selection
+    					.transition()							//Initiate a transition on all elements in the update selection (all rects)
+    					.duration(500)
+    					.attr("x", function(d, i) {				//Set new x position, based on the updated xScale
+    						return xScale(i);
+    					})
+    					.attr("y", function(d) {				//Set new y position, based on the updated yScale
+    						return h - yScale(d);
+    					})
+    					.attr("width", xScale.bandwidth())		//Set new width value, based on the updated xScale
+    					.attr("height", function(d) {			//Set new height value, based on the updated yScale
+    						return yScale(d);
+    					});
 
-       // Remove text from bars
-       var texts = svg.selectAll("text")
-                      .data(dataset)
+          //Exit…
+          bars.exit()				//References the exit selection (a subset of the update selection)
+              .transition()		//Initiates a transition on the one element we're deleting
+              .duration(500)
+              .attr("x", w)		//Move past the right edge of the SVG
+              .remove();   		//Deletes this element from the DOM once transition is complete
 
-                      texts.enter()
-                           .append("text")
-                           .attr("x", w)                  //Sets the x value, based on the update xScale
-                           .attr("y", function(d) {				//Sets the y value, based on the updated yScale
-               							return h - yScale(d);
-               						})
-                          .text(function(d) {             //
-             					   		return d;
-             					    })
-                          .merge(texts)
-                          .transition()
-                          .duration(500)
-                          .attr("text-anchor", "middle")
-                 			   .attr("x", function(d, i) {
-                 			   		return xScale(i) + xScale.bandwidth() / 2;
-                 			   })
-                 			   .attr("y", function(d) {
-                 			   		return h - yScale(d) + 14;
-                 			   })
-                 			   .attr("font-family", "sans-serif")
-                 			   .attr("font-size", "11px")
-                 			   .attr("fill", "white");
+          // Remove text from bars
+          var texts = svg.selectAll("text")
+                         .data(dataset)
 
-       texts.exit()
-            .transition()
-            .duration(500)
-            .attr("x", w)
-            .remove();
+          texts.enter()
+               .append("text")
+               .attr("x", w)                  //Sets the x value, based on the update xScale
+               .attr("y", function(d) {				//Sets the y value, based on the updated yScale
+               	 return h - yScale(d);
+               })
+               .text(function(d) {             //
+             		 return d;
+             	 })
+               .merge(texts)
+               .transition()
+               .duration(500)
+               .attr("text-anchor", "middle")
+               .attr("x", function(d, i) {
+                  return xScale(i) + xScale.bandwidth() / 2;
+               })
+               .attr("y", function(d) {
+                  return h - yScale(d) + 14;
+               })
+               .attr("font-family", "sans-serif")
+               .attr("font-size", "11px")
+               .attr("fill", "white");
 
-				});
+          texts.exit()
+               .transition()
+               .duration(500)
+               .attr("x", w)
+               .remove();
+			});
 
 
     </script>
