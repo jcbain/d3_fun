@@ -14,14 +14,54 @@
   </head>
 
   <body>
+
     <script type="text/javascript">
 
-      //Width and height
-      var w = 250;
-      var h = 250;
 
-      //Establish a dataset
-      var dataset = [ 5];
+
+     //Width and height
+      var w = 1000;
+      var h = 1000;
+
+      // var dataset = [5]
+
+      var dataset = [ {r: 1, c: 1, col: "red"},
+                      {r: 2, c: 1, col: "green"},
+                      {r: 3, c: 1, col: "red"},
+                      {r: 4, c: 1, col: "red"},
+                      {r: 5, c: 1, col: "red"},
+                      {r: 6, c: 1, col: "green"},
+                      {r: 1, c: 2, col: "red"},
+                      {r: 2, c: 2, col: "red"},
+                      {r: 3, c: 2, col: "red"},
+                      {r: 4, c: 2, col: "green"},
+                      {r: 5, c: 2, col: "red"},
+                      {r: 6, c: 2, col: "red"},
+                      {r: 1, c: 3, col: "blue"},
+                      {r: 2, c: 3, col: "green"},
+                      {r: 3, c: 3, col: "red"},
+                      {r: 4, c: 3, col: "red"},
+                      {r: 5, c: 3, col: "red"},
+                      {r: 6, c: 3, col: "green"},
+                      {r: 1, c: 4, col: "red"},
+                      {r: 2, c: 4, col: "red"},
+                      {r: 3, c: 4, col: "red"},
+                      {r: 4, c: 4, col: "green"},
+                      {r: 5, c: 4, col: "red"},
+                      {r: 6, c: 4, col: "red"},
+                      {r: 1, c: 5, col: "red"},
+                      {r: 2, c: 5, col: "green"},
+                      {r: 3, c: 5, col: "red"},
+                      {r: 4, c: 5, col: "red"},
+                      {r: 5, c: 5, col: "red"},
+                      {r: 6, c: 5, col: "green"},
+                      {r: 1, c: 6, col: "red"},
+                      {r: 2, c: 6, col: "red"},
+                      {r: 3, c: 6, col: "red"},
+                      {r: 4, c: 6, col: "green"},
+                      {r: 5, c: 6, col: "red"},
+                      {r: 6, c: 6, col: "red"},
+      ];
 
             //Create scales
       var scale = d3.scaleBand()
@@ -41,57 +81,57 @@
          .enter()
          .append("rect")
          .attr("x", function(d, i) {
-            return scale(i);
+            return scale(d.c);
          })
          .attr("y", function(d,i) {
-            return scale(i);
+            return scale(d.r);
          })
          .attr("width", scale.bandwidth())
          .attr("height", scale.bandwidth())
          .attr("fill", function(d) {
-          return "rgb(0, 0, " + Math.round(d * 10) + ")";
+          return d.col;
          });
 
             //On click, update with new data
-      d3.select("rect")
-        .on("click", function() {
+      // d3.select("rect")
+      //   .on("click", function() {
 
-          //Add one new value to dataset
-          var newNumber = 5; //New number = 5
-          dataset.push(newNumber);                //Add new number to array
+      //     //Add one new value to dataset
+      //     var newNumber = 5; //New number = 5
+      //     dataset.push(newNumber);                //Add new number to array
 
-          //Update scale domains
-          scale.domain(d3.range(dataset.length));  //Recalibrate the x scale domain, given the new length of dataset
+      //     //Update scale domains
+      //     scale.domain(d3.range(dataset.length));  //Recalibrate the x scale domain, given the new length of dataset
 
-          //Select…
-          var bars = svg.selectAll("rect")      //Select all bars
-                        .data(dataset);             //Re-bind data to existing bars, return the 'update' selection
-                                //'bars' is now the update selection
+      //     //Select…
+      //     var bars = svg.selectAll("rect")      //Select all bars
+      //                   .data(dataset);             //Re-bind data to existing bars, return the 'update' selection
+      //                           //'bars' is now the update selection
 
-          //Enter…
-          bars.enter()                //References the enter selection (a subset of the update selection)
-              .append("rect")             //Creates a new rect
-              .attr("x", w)             //Sets the initial x position of the rect beyond the far right edge of the SVG
-              .attr("y", function(d,i) {        //Sets the y value, based on the updated yScale
-               return scale(i);
-              })
-              .attr("width", scale.bandwidth())    //Sets the width value, based on the updated xScale
-              .attr("height", scale.bandwidth()) 
-              .attr("fill", function(d) {       //Sets the fill value
-               return "rgb(0, 0, " + Math.round(d * 10) + ")";
-              })
-              .merge(bars)              //Merges the enter selection with the update selection
-              .transition()             //Initiate a transition on all elements in the update selection (all rects)
-              .duration(500)
-              .attr("x", function(d, i) {       //Set new x position, based on the updated xScale
-                return scale(i);
-              })
-              .attr("y", function(d, i) {        //Set new y position, based on the updated yScale
-                return scale(0);
-              })
-              .attr("width", scale.bandwidth())    //Set new width value, based on the updated xScale
-              .attr("height", scale.bandwidth())
-        });
+      //     //Enter…
+      //     bars.enter()                //References the enter selection (a subset of the update selection)
+      //         .append("rect")             //Creates a new rect
+      //         .attr("x", w)             //Sets the initial x position of the rect beyond the far right edge of the SVG
+      //         .attr("y", function(d,i) {        //Sets the y value, based on the updated yScale
+      //          return scale(i);
+      //         })
+      //         .attr("width", scale.bandwidth())    //Sets the width value, based on the updated xScale
+      //         .attr("height", scale.bandwidth()) 
+      //         .attr("fill", function(d) {       //Sets the fill value
+      //          return "rgb(0, 0, " + Math.round(d * 10) + ")";
+      //         })
+      //         .merge(bars)              //Merges the enter selection with the update selection
+      //         .transition()             //Initiate a transition on all elements in the update selection (all rects)
+      //         .duration(500)
+      //         .attr("x", function(d, i) {       //Set new x position, based on the updated xScale
+      //           return scale(d.c);
+      //         })
+      //         .attr("y", function(d, i) {        //Set new y position, based on the updated yScale
+      //           return scale(d.r);
+      //         })
+      //         .attr("width", scale.bandwidth())    //Set new width value, based on the updated xScale
+      //         .attr("height", scale.bandwidth())
+      //   });
 
 
     </script>
