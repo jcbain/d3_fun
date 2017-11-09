@@ -23,23 +23,25 @@
 			var w = 600;
 			var h = 250;
 
+      //Establish a dataset
 			var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
 							11, 12, 15, 20, 18, 17, 16, 18, 23, 25 ];
 
+      //Create scales
 			var xScale = d3.scaleBand()
-							.domain(d3.range(dataset.length))
-							.rangeRound([0, w])
-							.paddingInner(0.05);
+							       .domain(d3.range(dataset.length))
+							       .rangeRound([0, w])
+							       .paddingInner(0.05);
 
 			var yScale = d3.scaleLinear()
-							.domain([0, d3.max(dataset)])
-							.range([0, h]);
+							       .domain([0, d3.max(dataset)])
+							       .range([0, h]);
 
 			//Create SVG element
 			var svg = d3.select("body")
-						.append("svg")
-						.attr("width", w)
-						.attr("height", h);
+						      .append("svg")
+						      .attr("width", w)
+						      .attr("height", h);
 
 			//Create bars
 			svg.selectAll("rect")
