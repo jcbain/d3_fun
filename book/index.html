@@ -14,7 +14,8 @@
   </head>
 
   <body>
-    <p>Click on this text to add a new data value to the chart!</p>
+    <p class="addition">Click on this text to add a new data value to the chart!</p>
+    <p class="subtraction">Click on this text to remove a data value from the chart!</p>
 
 		<script type="text/javascript">
 
@@ -82,7 +83,7 @@
 
 
 			//On click, update with new data
-			d3.select("p")
+			d3.select(".addition")
 				.on("click", function() {
 
 					//Add one new value to dataset
@@ -140,9 +141,9 @@
                .append("text")
                .attr("x", w)                  //Sets the x value, based on the update xScale
                .attr("y", function(d) {				//Sets the y value, based on the updated yScale
-   							return h - yScale(d);    
+   							return h - yScale(d);
    						})
-              .text(function(d) {
+              .text(function(d) {             //
  					   		return d;
  					    })
               .merge(texts)
@@ -159,23 +160,41 @@
      			   .attr("font-size", "11px")
      			   .attr("fill", "white");
 
-
-					//svg.selectAll("text")
-					 //  .data(dataset)
-					 //  .transition()
-					  // .duration(500)
-					   //.text(function(d) {
-					   //		return d;
-					   //})
-					   //.attr("x", function(d, i) {
-							//return xScale(i) + xScale.bandwidth() / 2;
-					   //})
-					   //.attr("y", function(d) {
-							//return h - yScale(d) + 14;
-					  // });
-
 				});
 
+
+      d3.select(".subtraction")
+      .on("click", function() {
+
+        //Remove one value from dataset
+        dataset.shift();
+
+        //Update scale domains
+        xScale.domain(d3.range(dataset.length));	//Recalibrate the x scale domain, given the new length of dataset
+        yScale.domain([0, d3.max(dataset)]);		//Recalibrate the y scale domain, given the new max value in dataset
+
+        //Select…
+        var bars = svg.selectAll("rect")			//Select all bars
+        .data(dataset);							//Re-bind data to existing bars, return the 'update' selection
+
+        //Exit…
+        bars.exit()				//References the exit selection (a subset of the update selection)
+            .transition()		//Initiates a transition on the one element we're deleting
+            .duration(500)
+            .attr("x", w)		//Move past the right edge of the SVG
+            .remove();   		//Deletes this element from the DOM once transition is complete
+
+       // Remove text from bars
+       var texts = svg.selectAll("text")
+                      .data(dataset)
+                      
+       texts.exit()
+            .transition()
+            .duration(500)
+            .attr("x", w)
+            .remove();
+
+				});
 
 
     </script>
