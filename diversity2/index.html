@@ -92,21 +92,15 @@
          .attr("height", scale.bandwidth())
          .attr("fill", function(d) {
           return "#e2e2e2";
-         });
+        })
+         .on("mouseover", function(d) {
+            d3.select(this)
+            .attr("fill", function(d){
+              return d.col;
+            })
+          }); 
 
-      d3.selectAll("rect")
-        .on("click", function(){
-          var squares = svg.selectAll("rect")
-                           .data(dataset);
 
-          squares.enter()
-                 .transition()
-                 .duration(500)
-                 .attr("fill", function(d) {
-          return d.col;
-         })
-
-        });
 
             //On click, update with new data
       // d3.select("rect")
