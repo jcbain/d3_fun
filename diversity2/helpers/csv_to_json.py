@@ -1,3 +1,8 @@
+# convert a csv file to a json file
+#
+# usage:
+#  python3 file.csv
+
 import csv
 import json
 import sys
