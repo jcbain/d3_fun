@@ -96,7 +96,11 @@
          .on("mouseover", function(d) {
             d3.select(this)
             .attr("fill", function(d){
-              return d.col;
+              if(d.col == "#db7dc6"){
+                return d.col;
+              } else {
+                return "#e2e2e2";
+              }
             })
           }); 
 
