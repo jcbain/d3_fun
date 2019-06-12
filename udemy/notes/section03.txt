@@ -1,3 +1,7 @@
 # Understanding D3 and Data Viz
 
+D3 bridges the gap between the data and vizualization on the web.
+
+The data is what drives the vizualization
+
 
